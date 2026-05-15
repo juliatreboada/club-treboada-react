@@ -1,0 +1,391 @@
+/* src/pages/more/CatalogPage.module.css */
+
+.catalogPage {
+  min-height: 100vh;
+  background: #f9f9f9;
+}
+
+/* Header Section */
+.header {
+  background: linear-gradient(135deg, #BC0500 0%, #831616 100%);
+  color: white;
+  margin-top: calc(-1 * var(--header-height));
+  padding: calc(3rem + var(--header-height)) 0 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.header :global(.container) {
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Order Button */
+.orderButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 0;
+}
+
+.orderButton {
+  background: #BC0500;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.orderButton:hover {
+  background: #831616;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(188, 5, 0, 0.3);
+}
+
+/* Filters */
+.filtersSection {
+  margin: 2rem 0 3rem;
+}
+
+.filterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.filterButton {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  background: white;
+  color: #444444;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: 2px solid transparent;
+}
+
+.filterButton:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.filterButton.active {
+  background: #BC0500;
+  color: white;
+  box-shadow: 0 5px 15px rgba(188, 5, 0, 0.2);
+}
+
+/* Products Grid */
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0 4rem;
+}
+
+/* Product Card */
+.productCard {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.productCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(188, 5, 0, 0.1);
+  border-bottom-color: #BC0500;
+}
+
+.productImageContainer {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.productCard:hover .productImage {
+  transform: scale(1.05);
+}
+
+.productInfo {
+  padding: 1.5rem;
+}
+
+.productName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 0.5rem;
+}
+
+.productPrice {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #BC0500;
+  margin-bottom: 0.5rem;
+}
+
+.productCategories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.categoryTag {
+  background: #f0f0f0;
+  color: #666;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  text-transform: capitalize;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 18px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.modalClose:hover {
+  background: #BC0500;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.modalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.modalImageContainer {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modalTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #282828;
+}
+
+.modalPrice {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #BC0500;
+}
+
+.modalDescription {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.modalCategories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.modalCategoryTag {
+  background: #BC0500;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.modalOrderButton {
+  background: #BC0500;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  border: 2px solid transparent;
+}
+
+.modalOrderButton:hover {
+  background: #831616;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(188, 5, 0, 0.3);
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 4rem;
+  color: #999;
+  font-size: 1.2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .orderButtonContainer {
+    justify-content: center;
+  }
+
+  .filterButton {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .modalGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .modalImageContainer {
+    height: 300px;
+  }
+
+  .modalTitle {
+    font-size: 1.5rem;
+  }
+
+  .modalPrice {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterGroup {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterButton {
+    width: 100%;
+  }
+
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+}

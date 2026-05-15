@@ -1,0 +1,377 @@
+/* src/pages/disciplines/components/GroupCard.module.css */
+.groupWrapper {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 20px;
+  margin-bottom: 30px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.groupWrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(188, 5, 0, 0.12);
+}
+
+.groupWrapper:last-child {
+  margin-bottom: 0;
+}
+
+/* Slider Container */
+.sliderContainer {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  background: linear-gradient(145deg, #f8f8f8 0%, #f0f0f0 100%);
+  position: relative;
+}
+
+.sliderContainer.loading {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+}
+
+.swiper :global(.swiper-pagination) {
+  bottom: 10px;
+}
+
+.swiper :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: white;
+  opacity: 0.7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.swiper :global(.swiper-pagination-bullet-active) {
+  background: var(--color-primary);
+  opacity: 1;
+  width: 20px;
+  border-radius: 4px;
+}
+
+.sliderImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.groupWrapper:hover .sliderImage {
+  transform: scale(1.05);
+}
+
+/* Info Card */
+.infoCard {
+  padding: 24px 28px;
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: white;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.groupTitle {
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(188, 5, 0, 0.15);
+  position: relative;
+}
+
+.groupTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.groupWrapper:hover .groupTitle::after {
+  width: 80px;
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.detailItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+}
+
+.detailItem:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: var(--color-dark);
+  min-width: 110px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.detailValue {
+  color: var(--color-text);
+  flex: 1;
+  font-size: 14px;
+}
+
+.highlight {
+  color: var(--color-primary);
+  font-weight: 600;
+  background: rgba(188, 5, 0, 0.05);
+  padding: 2px 8px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* Quick Actions */
+.quickActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  justify-content: flex-end;
+}
+
+.actionButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid rgba(188, 5, 0, 0.2);
+  color: var(--color-primary);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.actionButton:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(188, 5, 0, 0.2);
+}
+
+.actionButton:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .groupWrapper {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .sliderContainer {
+    min-height: 250px;
+  }
+
+  .swiper {
+    min-height: 250px;
+  }
+
+  .infoCard {
+    padding: 20px;
+  }
+
+  .groupTitle {
+    font-size: 22px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+
+  .detailLabel {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .groupWrapper {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 25px;
+    border-radius: 12px;
+  }
+
+  .sliderContainer {
+    min-height: 220px;
+  }
+
+  .swiper {
+    min-height: 220px;
+  }
+
+  .infoCard {
+    padding: 18px 20px;
+    border-left: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .groupTitle {
+    font-size: 20px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+  }
+
+  .detailItem {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .detailLabel {
+    min-width: 90px;
+    font-size: 12px;
+  }
+
+  .detailValue {
+    font-size: 13px;
+  }
+
+  .quickActions {
+    margin-top: 15px;
+    padding-top: 12px;
+  }
+
+  .actionButton {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailItem {
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 0;
+  }
+
+  .detailLabel {
+    min-width: auto;
+  }
+
+  .sliderContainer {
+    min-height: 200px;
+  }
+
+  .swiper {
+    min-height: 200px;
+  }
+
+  .infoCard {
+    padding: 16px;
+  }
+
+  .groupTitle {
+    font-size: 18px;
+  }
+
+  .quickActions {
+    justify-content: center;
+  }
+}
+
+/* Print styles */
+@media print {
+  .quickActions {
+    display: none;
+  }
+
+  .groupWrapper {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: avoid;
+  }
+
+  .groupWrapper:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .sliderContainer {
+    background: none;
+  }
+}
+/* Add to GroupCard.module.css */
+.placeholderImage {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  font-size: 48px;
+  text-align: center;
+  padding: 20px;
+}
+
+.placeholderImage p {
+  font-size: 16px;
+  margin-top: 10px;
+  color: var(--color-text);
+}
+
+.noDetails {
+  color: var(--color-text-light);
+  font-style: italic;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.singleImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.groupWrapper:hover .singleImage {
+  transform: scale(1.05);
+}

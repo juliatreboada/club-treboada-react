@@ -1,0 +1,159 @@
+/* src/pages/HomePage/components/DisciplinasSection.module.css */
+
+/* Grid Layout - more compact */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* Reduced from 30px */
+  max-width: 1100px; /* Slightly smaller max-width */
+  margin: 0 auto 40px auto;
+}
+
+/* Card Styles - more compact */
+.disciplinaCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 25px 20px; /* Reduced padding */
+  text-align: center;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+/* Bigger, more prominent icons */
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px; /* Reduced from 25px */
+  height: 140px; /* Increased from 120px */
+}
+
+.icon {
+  max-height: 130px; /* Increased from 100px */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cardLink:hover .icon {
+  transform: scale(1.15) rotate(5deg); /* Stronger hover effect */
+}
+
+.title {
+  color: var(--color-primary);
+  font-size: 22px; /* Slightly smaller */
+  font-weight: 700;
+  margin-bottom: 10px; /* Reduced */
+}
+
+/* Smaller description text */
+.description {
+  color: var(--color-text);
+  font-size: 13px; /* Reduced from 14px */
+  line-height: 1.5; /* Tighter line height */
+  margin-bottom: 15px; /* Reduced */
+  flex: 1;
+  text-align: justify;
+  /* Add a subtle fade effect for long text */
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Limit to 5 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.readMore {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 14px; /* Smaller */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: gap 0.3s ease;
+  margin-top: auto;
+  padding-top: 10px; /* Add some space */
+  border-top: 1px solid rgba(188, 5, 0, 0.1); /* Subtle separator */
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  font-size: 16px; /* Slightly bigger arrow */
+}
+
+.cardLink:hover .readMore {
+  gap: 10px;
+}
+
+.cardLink:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Button Container - more compact */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Reduced from 50px */
+}
+
+.buttonArrow {
+  transition: transform 0.3s ease;
+}
+
+.buttonContainer a:hover .buttonArrow {
+  transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  .iconContainer {
+    height: 120px;
+  }
+
+  .icon {
+    max-height: 110px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 12px;
+    -webkit-line-clamp: 4; /* Fewer lines on mobile */
+  }
+
+  .buttonContainer a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .iconContainer {
+    height: 100px;
+  }
+
+  .icon {
+    max-height: 90px;
+  }
+}

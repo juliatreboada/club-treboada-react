@@ -1,0 +1,115 @@
+/* src/pages/disciplines/components/GroupNav.module.css */
+.groupNav {
+  position: sticky;
+  top: 70px; /* Below header */
+  z-index: 900;
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  padding: 12px 0;
+  margin-bottom: 30px;
+}
+
+.navList {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 0;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  justify-content: center; /* ← Centra los items */
+}
+
+/* Para mantener el scroll en móviles, necesitamos un wrapper */
+.navContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* En móviles, quitamos el justify-content para que el scroll funcione correctamente */
+@media (max-width: 768px) {
+  .navList {
+    justify-content: flex-start; /* ← Vuelve a left para scroll en móvil */
+  }
+  
+  /* Opcional: añade padding invisible al inicio y final para mejor scroll */
+  .navList::before,
+  .navList::after {
+    content: '';
+    padding: 0 10px;
+  }
+}
+
+.navList::-webkit-scrollbar {
+  height: 4px;
+}
+
+.navList::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.navList::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+.navButton {
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 30px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  flex-shrink: 0;
+}
+
+.navButton:hover {
+  color: var(--color-primary);
+  background: rgba(188, 5, 0, 0.05);
+  border-color: rgba(188, 5, 0, 0.2);
+}
+
+.navButton.active {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 10px rgba(188, 5, 0, 0.2);
+}
+
+.navButton:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .groupNav {
+    top: 60px;
+    padding: 10px 0;
+    margin-bottom: 25px;
+  }
+
+  .navButton {
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navList {
+    gap: 8px;
+  }
+
+  .navButton {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,77 @@
+/* src/components/UI/SectionTitle.module.css */
+.sectionTitle {
+  margin-bottom: 30px; /* Reduced from 50px */
+}
+
+.sectionTitle h2 {
+  color: var(--color-primary);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.sectionTitle h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.sectionTitle p {
+  color: var(--color-text-light);
+  font-size: 18px;
+  font-style: italic;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Alignment variations */
+.sectionTitle.center {
+  text-align: center;
+}
+
+.sectionTitle.center h2::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sectionTitle.left {
+  text-align: left;
+}
+
+.sectionTitle.left h2::after {
+  left: 0;
+}
+
+.sectionTitle.right {
+  text-align: right;
+}
+
+.sectionTitle.right h2::after {
+  right: 0;
+}
+
+/* Hover effect on section title */
+.sectionTitle:hover h2::after {
+  width: 100px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sectionTitle {
+    margin-bottom: 40px;
+  }
+
+  .sectionTitle h2 {
+    font-size: 28px;
+  }
+
+  .sectionTitle p {
+    font-size: 16px;
+  }
+}

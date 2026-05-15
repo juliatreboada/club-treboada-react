@@ -1,0 +1,16 @@
+/* src/components/UI/Section.module.css */
+.section {
+  padding: 40px 0 60px 0;
+}
+
+.light {
+  background-color: var(--color-background);
+}
+
+.lightAlt {
+  background-color: var(--color-background-alt, #f9f9f9);
+}
+
+.gradient {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}

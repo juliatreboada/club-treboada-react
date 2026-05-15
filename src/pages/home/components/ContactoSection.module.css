@@ -1,0 +1,244 @@
+/* src/pages/HomePage/components/ContactSection.module.css */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Info Column */
+.infoColumn {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.infoItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.icon {
+  font-size: 22px;
+  color: var(--color-primary);
+  background: rgba(188, 5, 0, 0.05);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.infoItem:hover .icon {
+  background: var(--color-primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.content {
+  flex: 1;
+}
+
+.content h4 {
+  color: var(--color-dark);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* Contact Row - side by side */
+.contactRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.contactRow .infoItem {
+  margin-bottom: 0;
+}
+
+/* Lists */
+.addressList,
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.addressList li {
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contactList li {
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.contactList li:last-child {
+  margin-bottom: 0;
+}
+
+/* Links */
+.emailLink {
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+  word-break: break-all;
+}
+
+.phoneLink,
+.whatsappLink {
+  color: var(--color-text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+  font-size: 13px;
+}
+
+.phoneLink:hover {
+  color: var(--color-primary);
+  transform: translateX(3px);
+}
+
+.whatsappLink {
+  color: #25D366;
+}
+
+.phoneLink:hover,
+.whatsappLink:hover {
+  transform: translateX(3px);
+}
+
+.contactName {
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-right: 4px;
+}
+
+/* Map Column */
+.mapColumn {
+  height: 100%;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  max-height: 450px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+
+.mapContainer:hover .map {
+  transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mapColumn {
+    order: -1;
+  }
+
+  .mapContainer {
+    min-height: 300px;
+    max-height: 350px;
+  }
+
+  .contactRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 0;
+  }
+
+  .infoColumn {
+    padding: 20px;
+  }
+
+  .contactRow {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .mapContainer {
+    min-height: 250px;
+    max-height: 300px;
+  }
+
+  .icon {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .content h4 {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .infoItem {
+    gap: 10px;
+  }
+
+  .addressList li,
+  .contactList li {
+    font-size: 12px;
+  }
+}
+/* Responsive */
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mapColumn {
+    order: 2; /* This makes map appear after info column */
+  }
+
+  .infoColumn {
+    order: 1; /* This makes info appear first */
+  }
+
+  .mapContainer {
+    min-height: 300px;
+    max-height: 350px;
+  }
+
+  .contactRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}

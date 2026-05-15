@@ -1,0 +1,26 @@
+/* src/pages/HomePage/HomePage.module.css */
+.section {
+  padding: 80px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h2 {
+  color: var(--color-dark);
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--color-primary);
+}

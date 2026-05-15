@@ -1,0 +1,68 @@
+
+/* Import Barlow font */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap');
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Brand variables */
+:root {
+  /* Colors - these NEVER change across the site */
+  --color-primary: #BC0500;
+  --color-primary-dark: #831616;
+  --color-dark: #282828;
+  --color-darker: #0f0f0f;
+  --color-text: #444444;
+  --color-text-light: #777777;
+  --color-background: #ffffff;
+  
+  /* Typography - consistent across site */
+  --font-primary: 'Barlow', sans-serif;
+  --font-size-base: 16px;
+  
+  /* Layout - consistent containers */
+  --container-width: 1200px;
+
+  --header-height: 80px;
+}
+
+/* Base body styles */
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background: var(--color-background);
+  line-height: 1.5;
+}
+
+/* Headings - all inherit Barlow from body */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+h1 { font-size: 48px; }
+h2 { font-size: 32px; }
+h3 { font-size: 28px; }
+h4 { font-size: 24px; }
+
+/* Links - base styles */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-family: var(--font-primary);
+}
+
+/* Container - for consistent page layout */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}

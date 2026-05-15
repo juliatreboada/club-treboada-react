@@ -1,0 +1,534 @@
+/* src/pages/camp/CampPage.module.css */
+
+.campPage {
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #BC0500 0%, #831616 100%);
+  color: white;
+  margin-top: calc(-1 * var(--header-height));
+  padding: calc(var(--header-height) + 3rem) 0 3rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.hero :global(.container) {
+  position: relative;
+  z-index: 2;
+}
+
+.edition {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.title {
+  color: white;
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+/* Weeks option cards (the central choice on this page) */
+.heroWeeksGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+}
+
+.heroWeekCard {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+  text-align: left;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.heroWeekCard:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.heroWeekBadge {
+  background: white;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+}
+
+.heroWeekDates {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+}
+
+.heroWeekSubdates {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* Primary CTA + price */
+.heroActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.25rem;
+  flex-wrap: wrap;
+  margin: 0 auto 1.75rem;
+}
+
+.heroPrimaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.heroPrimaryCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  background: #fff5f5;
+}
+
+.heroPrice {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+}
+
+.heroPrice strong {
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Idade / Horario / Localización */
+.heroFacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.heroFact {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.heroFactLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.heroFactValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Deadline banner */
+.deadlineBanner {
+  background: #fff7f7;
+  border-bottom: 1px solid rgba(188, 5, 0, 0.15);
+}
+
+.deadlineInner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+
+.deadlineLabel {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: #BC0500;
+}
+
+.deadlineText {
+  color: #444444;
+}
+
+.deadlinePill {
+  margin-left: auto;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+}
+
+/* Generic sections */
+.section {
+  padding: 3rem 0;
+}
+
+.section + .section {
+  padding-top: 0;
+}
+
+/* Info grid (Que inclúe / Que traer / Horario) */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.infoCard h3 {
+  color: #282828;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.infoCard h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--color-primary);
+}
+
+.infoCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #444444;
+}
+
+.infoCard ul li {
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.infoCard ul li::before {
+  content: '•';
+  color: var(--color-primary);
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+}
+
+.scheduleList li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-left: 0;
+}
+
+.scheduleList li::before {
+  content: none;
+}
+
+.scheduleTime {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.scheduleActivity {
+  font-weight: 500;
+  color: #282828;
+}
+
+/* Bank info */
+.bankCard h3 {
+  font-size: 1.4rem;
+  color: #282828;
+  margin-bottom: 0.5rem;
+}
+
+.bankIntro {
+  color: #555;
+  margin-bottom: 1.25rem;
+}
+
+.bankList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem 1.5rem;
+  margin: 0;
+}
+
+.bankList > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.bankList dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #777;
+  font-weight: 600;
+}
+
+.bankList dd {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #282828;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+/* Registration steps (how-to) */
+.stepsSection {
+  padding-bottom: 2rem;
+}
+
+.stepsCard {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.stepsHeading {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  color: #282828;
+}
+
+.stepsIntro {
+  margin: 0 0 1.5rem;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.stepsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stepItem {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.stepItem:first-of-type {
+  padding-top: 0;
+}
+
+.stepItem:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.stepBody {
+  min-width: 0;
+}
+
+.stepTitle {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #282828;
+  line-height: 1.3;
+}
+
+.stepText {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.55;
+}
+
+.stepsFootnote {
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .stepItem {
+    grid-template-columns: 2.25rem 1fr;
+    gap: 0.75rem;
+  }
+  .stepNumber {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Notes */
+.notesCard h3 {
+  color: #282828;
+  margin-bottom: 1rem;
+}
+
+.notesCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #444;
+}
+
+.notesCard ul li {
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.notesCard ul li::before {
+  content: '!';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.2rem;
+}
+
+/* Form placeholder */
+.formPlaceholder {
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+.formPlaceholder h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.formPlaceholder p {
+  color: #777;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  .subtitle {
+    font-size: 1.05rem;
+  }
+  .heroFacts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: calc(var(--header-height) + 1.75rem) 0 2rem;
+  }
+  .heroWeeksGrid {
+    grid-template-columns: 1fr;
+  }
+  .heroFacts {
+    grid-template-columns: 1fr;
+  }
+  .heroActions {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .heroPrimaryCta {
+    width: 100%;
+  }
+  .deadlinePill {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,489 @@
+/* src/pages/HomePage/components/HeroSection.module.css */
+
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-primary);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* Make hero background sit behind fixed header on home */
+  margin-top: calc(-1 * var(--header-height));
+  padding-top: var(--header-height);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 40px 0 80px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contentWrapper h1 {
+  color: white;
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.contentWrapper h2 {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+/* Slider Styles */
+.sliderWrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slideInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.slideInner img {
+  max-width: 100%;
+  max-height: 300px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Icon Row */
+.iconRow {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.iconCol {
+  flex: 0 0 auto;
+  width: 200px;
+  padding: 10px;
+}
+
+.iconCol img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Logo Strip - positioned at bottom left */
+.logoStrip {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  z-index: 20;
+}
+
+.logoStrip img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: opacity 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.logoStrip img:hover {
+  opacity: 1;
+}
+
+/* Arrow Styles */
+.sliderWrapper :global(.swiper-button-next),
+.sliderWrapper :global(.swiper-button-prev) {
+  color: white !important;
+  background: rgba(0, 0, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.sliderWrapper :global(.swiper-button-next:hover),
+.sliderWrapper :global(.swiper-button-prev:hover) {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.sliderWrapper :global(.swiper-button-next::after),
+.sliderWrapper :global(.swiper-button-prev::after) {
+  font-size: 20px;
+}
+
+.sliderWrapper :global(.swiper-button-next) {
+  right: 0;
+}
+
+.sliderWrapper :global(.swiper-button-prev) {
+  left: 0;
+}
+
+/* ===== MOBILE EVENTS — quick links (Open + campamento) ===== */
+.mobileEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px 0;
+  padding: 0 15px;
+  width: 100%;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mobileEventCard {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  min-height: 140px; /* Taller cards */
+}
+
+.mobileEventCard:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: white;
+}
+
+.mobileEventImage {
+  width: 140px; /* Increased from 80px */
+  height: 140px; /* Increased from 80px */
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileEventImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Camp card: no dedicated poster in repo — branded gradient block */
+.mobileEventImageCamp {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 210, 140, 0.45) 0%,
+    rgba(188, 5, 0, 0.65) 55%,
+    rgba(100, 20, 20, 0.75) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.mobileEventCampBadge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  line-height: 1.35;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.mobileEventContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  color: white;
+  min-height: 140px; /* Match image height */
+}
+
+.mobileEventTitle {
+  font-size: 20px; /* Slightly larger */
+  font-weight: 600;
+  margin: 0;
+}
+
+.mobileEventArrow {
+  font-size: 28px; /* Larger arrow */
+  transition: transform 0.3s ease;
+}
+
+.mobileEventCard:hover .mobileEventArrow {
+  transform: translateX(8px);
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 992px) {
+  .contentWrapper h1 {
+    font-size: 42px;
+  }
+
+  .iconCol {
+    width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100vh;
+  }
+
+  .contentWrapper {
+    padding: 20px 0 100px;
+    min-height: 100vh;
+  }
+
+  .contentWrapper h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .contentWrapper h2 {
+    font-size: 18px;
+    margin-bottom: 30px;
+    padding: 0 15px;
+  }
+
+  /* SLIDER FIXES */
+  .sliderWrapper {
+    padding: 0 30px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .slideInner {
+    padding: 10px 0;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slideInner img {
+    max-height: 250px;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  /* Icon row */
+  .iconRow {
+    gap: 15px;
+    width: 100%;
+  }
+
+  .iconCol {
+    width: 100px;
+    padding: 5px;
+  }
+
+  .iconCol img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* LOGOS */
+  .logoStrip {
+    bottom: 20px;
+    left: 20px;
+    gap: 12px;
+  }
+  
+  .logoStrip img {
+    height: 30px;
+  }
+
+  /* Adjust arrows */
+  .sliderWrapper :global(.swiper-button-next),
+  .sliderWrapper :global(.swiper-button-prev) {
+    width: 32px;
+    height: 32px;
+  }
+
+  .sliderWrapper :global(.swiper-button-next::after),
+  .sliderWrapper :global(.swiper-button-prev::after) {
+    font-size: 16px;
+  }
+
+  .sliderWrapper :global(.swiper-button-next) {
+    right: 5px;
+  }
+
+  .sliderWrapper :global(.swiper-button-prev) {
+    left: 5px;
+  }
+
+  /* Mobile events on tablet */
+  .mobileEventCard {
+    min-height: 120px;
+  }
+
+  .mobileEventImage {
+    width: 120px;
+    height: 120px;
+  }
+
+  .mobileEventContent {
+    min-height: 120px;
+    padding: 0 20px;
+  }
+
+  .mobileEventTitle {
+    font-size: 18px;
+    color: white;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentWrapper h1 {
+    font-size: 28px;
+  }
+
+  .contentWrapper h2 {
+    font-size: 16px;
+  }
+
+  /* SLIDER */
+  .sliderWrapper {
+    padding: 0 25px;
+  }
+
+  .slideInner img {
+    max-height: 200px;
+  }
+
+  .iconCol {
+    width: 80px;
+  }
+
+  /* LOGOS */
+  .logoStrip {
+    bottom: 15px;
+    left: 15px;
+    gap: 10px;
+  }
+  
+  .logoStrip img {
+    height: 25px;
+  }
+
+  /* Mobile events - still tall but adjusted for small screens */
+  .mobileEventCard {
+    min-height: 110px;
+  }
+
+  .mobileEventImage {
+    width: 110px;
+    height: 110px;
+  }
+
+  .mobileEventContent {
+    min-height: 110px;
+    padding: 0 18px;
+  }
+
+  .mobileEventTitle {
+    font-size: 17px;
+    color: white;
+  }
+
+  .mobileEventArrow {
+    font-size: 24px;
+  }
+
+  .mobileEventCampBadge {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (max-width: 360px) {
+  .slideInner img {
+    max-height: 180px;
+  }
+
+  .iconCol {
+    width: 70px;
+  }
+
+  .iconRow {
+    gap: 8px;
+  }
+
+  .logoStrip {
+    bottom: 10px;
+    left: 10px;
+    gap: 8px;
+  }
+  
+  .logoStrip img {
+    height: 22px;
+  }
+
+  /* Mobile events - smallest screens */
+  .mobileEventCard {
+    min-height: 100px;
+  }
+
+  .mobileEventImage {
+    width: 100px;
+    height: 100px;
+  }
+
+  .mobileEventContent {
+    min-height: 100px;
+    padding: 0 15px;
+  }
+
+  .mobileEventTitle {
+    font-size: 16px;
+    color: white;
+  }
+}

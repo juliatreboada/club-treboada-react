@@ -1,0 +1,148 @@
+/* src/pages/HomePage/components/EscolasSection.module.css */
+
+/* Title Link Styles (custom for this section) */
+.titleLink {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.titleLink:hover {
+  transform: translateY(-2px);
+}
+
+.titleLink h2 {
+  color: var(--color-primary);
+  font-size: 32px;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+}
+
+.titleLink h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.titleLink:hover h2::after {
+  width: 100px;
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Card Link */
+.cardLink {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+/* Card Inner Styles */
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 80px;
+}
+
+.logo {
+  max-height: 60px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.cardLink:hover .logo {
+  transform: scale(1.05);
+}
+
+.title {
+  color: var(--color-dark);
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(188, 5, 0, 0.1);
+}
+
+.details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.disciplines {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-align: center;
+  font-size: 16px;
+  margin: 0;
+}
+
+.schedule {
+  background: rgba(188, 5, 0, 0.03);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.days {
+  color: var(--color-dark);
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.time {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0;
+}
+
+.location {
+  color: var(--color-text-light);
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .titleLink h2 {
+    font-size: 28px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 15px;
+  }
+
+  .logo {
+    max-height: 50px;
+  }
+}

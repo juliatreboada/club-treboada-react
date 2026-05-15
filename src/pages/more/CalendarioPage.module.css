@@ -1,0 +1,380 @@
+/* src/pages/more/CalendarioPage.module.css */
+.calendarPage {
+  min-height: 100vh;
+  background: #f9f9f9;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #BC0500 0%, #831616 100%);
+  color: white;
+  margin-top: calc(-1 * var(--header-height));
+  padding: calc(3rem + var(--header-height)) 0 3rem;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+}
+
+/* Legend */
+.legendSection {
+  margin: 2rem 0;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.legendTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 1rem;
+}
+
+.legendContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.legendGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.colorDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.legendLabel {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Calendar Container */
+.calendarContainer {
+  background: white;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  margin: 2rem 0;
+}
+
+/* FullCalendar custom overrides */
+.calendarContainer :global(.fc) {
+  font-family: 'Barlow', sans-serif;
+}
+
+.calendarContainer :global(.fc-toolbar-title) {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #282828;
+  text-transform: capitalize;
+}
+
+.calendarContainer :global(.fc-button) {
+  background: #BC0500 !important;
+  border-color: #BC0500 !important;
+  border-radius: 50px !important;
+  padding: 0.5rem 1.5rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.calendarContainer :global(.fc-button:hover) {
+  background: #831616 !important;
+  border-color: #831616 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(188, 5, 0, 0.3);
+}
+
+.calendarContainer :global(.fc-button-active) {
+  background: #831616 !important;
+}
+
+.calendarContainer :global(.fc-day-today) {
+  background: rgba(188, 5, 0, 0.05) !important;
+}
+
+.calendarContainer :global(.fc-event) {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.calendarContainer :global(.fc-event:hover) {
+  transform: scale(1.02);
+  filter: brightness(0.95);
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 18px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.modalClose:hover {
+  background: #BC0500;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.modalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.modalImageContainer {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit:scale-down;
+}
+
+.modalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modalTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #282828;
+  margin-bottom: 0.5rem;
+}
+
+.modalSubtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.modalMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modalMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+  background: #f5f5f5;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+}
+
+.modalDescription {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.modalTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.modalTag {
+  background: #f0f0f0;
+  color: #555;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+}
+
+.modalParticipants {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.modalParticipants h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 0.5rem;
+}
+
+.modalParticipants p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.modalButtons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.modalButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.primaryButton {
+  background: #BC0500;
+  color: white;
+}
+
+.primaryButton:hover {
+  background: #831616;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(188, 5, 0, 0.3);
+}
+
+.secondaryButton {
+  background: #666;
+  color: white;
+}
+
+.secondaryButton:hover {
+  background: #444;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .legendContainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .legendGroup {
+    justify-content: center;
+  }
+
+  .modalGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .modalImageContainer {
+    height: 300px;
+  }
+
+  .modalTitle {
+    font-size: 1.5rem;
+  }
+
+  .modalButtons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendarContainer {
+    padding: 1rem;
+  }
+
+  .modalImageContainer {
+    height: 200px;
+  }
+}

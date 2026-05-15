@@ -1,0 +1,108 @@
+/* src/components/UI/Button.module.css */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid transparent;
+  line-height: 1;
+}
+
+/* Icon styles */
+.iconLeft,
+.iconRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonIcon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* Ajuste para botón grande */
+.large .buttonIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Ajuste para botón pequeño */
+.small .buttonIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Variants */
+.primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.primary:hover {
+  background: white;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(188, 5, 0, 0.3);
+}
+
+.primary:hover .buttonIcon {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(93%) saturate(5229%) hue-rotate(358deg) brightness(89%) contrast(118%);
+}
+
+.secondary {
+  background: var(--color-dark);
+  color: white;
+}
+
+.secondary:hover {
+  background: var(--color-darker);
+  transform: translateY(-2px);
+}
+
+.outline {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.outline:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.outline:hover .buttonIcon {
+  filter: brightness(0) invert(1);
+}
+
+/* Sizes */
+.small {
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+.medium {
+  padding: 12px 30px;
+  font-size: 16px;
+}
+
+.large {
+  padding: 16px 40px;
+  font-size: 18px;
+}
+
+/* Full width on mobile if needed */
+@media (max-width: 768px) {
+  .button.large {
+    width: 100%;
+    text-align: center;
+  }
+}

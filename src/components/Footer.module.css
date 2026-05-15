@@ -1,0 +1,91 @@
+/* src/components/Footer.module.css */
+.footer {
+  background: var(--color-darker);
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  padding: 40px 0 30px 0;  /* Increased top padding */
+}
+
+.footer h3 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.footer p {
+  font-size: 15px;
+  font-style: italic;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.socialLinks {
+  margin: 0 0 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;  /* Better spacing between icons */
+}
+
+.socialLinks a {
+  font-size: 24px;  /* Bigger icons */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: #fff;
+  line-height: 1;
+  padding: 12px;  /* Increased padding */
+  border-radius: 50%;
+  width: 48px;    /* Fixed width */
+  height: 48px;   /* Fixed height */
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Tooltip on hover */
+.socialLinks a:hover {
+  transform: translateY(-3px);
+  background: var(--color-primary-dark);
+}
+
+/* Different background for Facebook (optional - keeps brand color) */
+.socialLinks a.facebook {
+  background: #3b5998;  /* Facebook blue */
+}
+
+.socialLinks a.facebook:hover {
+  background: #2d4373;
+}
+
+/* Add tooltip with discipline name */
+.socialLinks a[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-dark);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Copyright section */
+.copyright {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+.copyright strong {
+  color: var(--color-primary);
+  font-weight: 600;
+}

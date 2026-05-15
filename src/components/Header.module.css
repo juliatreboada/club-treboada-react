@@ -1,0 +1,198 @@
+/* src/components/Header.module.css */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header.scrolled {
+  background: rgba(40, 40, 40, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* Inner pages (like discipline pages) */
+.header.innerPage {
+  background: rgba(40, 40, 40, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* Logo left, nav grows in the middle, avatar pinned to the far right */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+/* Text Logo Styles */
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+  white-space: nowrap; /* Evita que el logo se rompa */
+}
+
+.logo:hover {
+  color: var(--color-primary);
+}
+
+/* Desktop navigation — fills space between logo and avatar */
+.nav {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLink {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.navLink:hover {
+  color: white;
+}
+
+.navLink:hover::after,
+.navLink.active::after {
+  width: 100%;
+}
+
+.navLink.active {
+  color: white;
+}
+
+/* User menu — always at the trailing edge of the header bar */
+.userMenuWrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+/* Mobile Menu Toggle */
+.menuToggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 0;
+}
+
+.menuIcon {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.8rem 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .brand {
+    order: 1;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .logo {
+    font-size: 24px;
+  }
+  
+  .menuToggle {
+    display: block;
+  }
+  
+  .userMenuWrapper {
+    order: 2;
+    margin-left: 0;
+  }
+
+  .nav {
+    display: none;
+    order: 3;
+    flex: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(40, 40, 40, 0.95);
+    margin-top: 0.8rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .nav.navOpen {
+    display: flex;
+  }
+
+  .navLink {
+    padding: 1rem 2rem;
+    width: 100%;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .navLink:last-child {
+    border-bottom: none;
+  }
+
+  .navLink::after {
+    display: none;
+  }
+
+  .navLink:hover {
+    background: var(--color-primary);
+  }
+}
+
+/* Ajuste para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 20px;
+  }
+  
+  .userMenuWrapper {
+    margin-left: 0.5rem;
+  }
+}
