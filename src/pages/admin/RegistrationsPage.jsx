@@ -37,6 +37,35 @@ const formatDateTime = (value) =>
 const formatMoney = (value) =>
   `${Number(value || 0).toFixed(2)} ${campData.currency}`;
 
+const computeWeekStats = (registrations) => {
+  const active = registrations.filter((r) => r.status !== 'cancelled');
+
+  return campData.weeks.map((week) => {
+    let kids = 0;
+    let registrationCount = 0;
+
+    for (const reg of active) {
+      let hasWeek = false;
+      for (const kid of reg.kids || []) {
+        if ((kid.weeks || []).includes(week.id)) {
+          kids += 1;
+          hasWeek = true;
+        }
+      }
+      if (hasWeek) registrationCount += 1;
+    }
+
+    return {
+      id: week.id,
+      label: week.label,
+      shortDates: week.shortDates,
+      kids,
+      registrations: registrationCount,
+      minRequired: campData.minRegistrations,
+    };
+  });
+};
+
 const RegistrationsPage = () => {
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -119,6 +148,11 @@ const RegistrationsPage = () => {
 
     return { totalRegistrations, totalKids, confirmed, collected, pending };
   }, [registrations]);
+
+  const weekStats = useMemo(
+    () => computeWeekStats(registrations),
+    [registrations]
+  );
 
   const handleStatusChange = async (registration, newStatus) => {
     setUpdatingId(registration.id);
@@ -204,6 +238,19 @@ const RegistrationsPage = () => {
           <StatPill label="Pendente cobro" value={formatMoney(stats.pending)} />
         </div>
 
+        <section className={styles.weekStats} aria-label="Inscricións por semana">
+          <h2 className={styles.weekStatsTitle}>Por semana</h2>
+          <p className={styles.weekStatsHint}>
+            Nenos/as por semana (inscricións non canceladas). Mínimo para
+            celebrar o campamento: {campData.minRegistrations}.
+          </p>
+          <div className={styles.weekStatsGrid}>
+            {weekStats.map((week) => (
+              <WeekStatCard key={week.id} week={week} />
+            ))}
+          </div>
+        </section>
+
         <div className={styles.toolbar}>
           <div className={styles.filterGroup}>
             <FilterChips
@@ -233,7 +280,14 @@ const RegistrationsPage = () => {
               onChange={setWeekFilter}
               options={[
                 { id: 'all', label: 'Todas' },
-                ...campData.weeks.map((w) => ({ id: w.id, label: w.label })),
+                ...campData.weeks.map((w) => {
+                  const count =
+                    weekStats.find((s) => s.id === w.id)?.kids ?? 0;
+                  return {
+                    id: w.id,
+                    label: `${w.label} (${count})`,
+                  };
+                }),
               ]}
             />
           </div>
@@ -285,6 +339,39 @@ const StatPill = ({ label, value }) => (
     <span className={styles.statValue}>{value}</span>
   </div>
 );
+
+const WeekStatCard = ({ week }) => {
+  const meetsMinimum = week.kids >= week.minRequired;
+  const remaining = Math.max(week.minRequired - week.kids, 0);
+
+  return (
+    <div
+      className={`${styles.weekStatCard} ${
+        meetsMinimum ? styles.weekStatCardOk : styles.weekStatCardPending
+      }`}
+    >
+      <div className={styles.weekStatHeader}>
+        <span className={styles.weekStatLabel}>{week.label}</span>
+        <span className={styles.weekStatDates}>{week.shortDates}</span>
+      </div>
+      <div className={styles.weekStatKids}>
+        <span className={styles.weekStatKidsValue}>{week.kids}</span>
+        <span className={styles.weekStatKidsUnit}>
+          {week.kids === 1 ? 'neno/a' : 'nenos/as'}
+        </span>
+      </div>
+      <p className={styles.weekStatRegistrations}>
+        {week.registrations}{' '}
+        {week.registrations === 1 ? 'inscrición' : 'inscricións'}
+      </p>
+      <p className={styles.weekStatMinimum}>
+        {meetsMinimum
+          ? `Mínimo alcanzado (${week.minRequired})`
+          : `Faltan ${remaining} para o mínimo (${week.minRequired})`}
+      </p>
+    </div>
+  );
+};
 
 const FilterChips = ({ label, value, onChange, options }) => (
   <div className={styles.filter}>

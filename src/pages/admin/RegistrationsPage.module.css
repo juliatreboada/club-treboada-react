@@ -80,6 +80,110 @@
   color: #282828;
 }
 
+/* Week breakdown */
+.weekStats {
+  background: white;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.weekStatsTitle {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: #282828;
+}
+
+.weekStatsHint {
+  margin: 0 0 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.weekStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.weekStatCard {
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid #ececec;
+}
+
+.weekStatCardOk {
+  background: #f3faf5;
+  border-color: #c8e6d0;
+}
+
+.weekStatCardPending {
+  background: #fffaf3;
+  border-color: #f0dfc4;
+}
+
+.weekStatHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.weekStatLabel {
+  font-weight: 700;
+  color: #282828;
+}
+
+.weekStatDates {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.weekStatKids {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.weekStatKidsValue {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-primary, #c41e3a);
+}
+
+.weekStatKidsUnit {
+  font-size: 0.95rem;
+  color: #444;
+  font-weight: 600;
+}
+
+.weekStatRegistrations {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.weekStatMinimum {
+  margin: 0.15rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.weekStatCardOk .weekStatMinimum {
+  color: #2d6a3e;
+}
+
+.weekStatCardPending .weekStatMinimum {
+  color: #9a6b1f;
+}
+
 /* Toolbar */
 .toolbar {
   background: white;
