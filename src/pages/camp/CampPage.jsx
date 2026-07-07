@@ -1,13 +1,16 @@
 // src/pages/camp/CampPage.jsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '../../components/UI/Card';
 import campData from '../../data/campData';
+import { getCampRegistrationSettings } from '../../lib/campRegistrationSettings';
 import RegistrationForm from './RegistrationForm';
 import SuccessScreen from './SuccessScreen';
 import styles from './CampPage.module.css';
 
 const CampPage = () => {
   const [submission, setSubmission] = useState(null);
+  const [registrationsOpen, setRegistrationsOpen] = useState(true);
+  const [registrationsMessage, setRegistrationsMessage] = useState(null);
 
   const {
     title,
@@ -30,6 +33,24 @@ const CampPage = () => {
     registrationSteps,
   } = campData;
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadSettings = async () => {
+      const { data, error } = await getCampRegistrationSettings();
+      if (cancelled || error || !data) return;
+
+      setRegistrationsOpen(data.registrationsOpen);
+      setRegistrationsMessage(data.registrationsMessage);
+    };
+
+    loadSettings();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className={styles.campPage}>
       {/* Hero */}
@@ -50,9 +71,13 @@ const CampPage = () => {
           </div>
 
           <div className={styles.heroActions}>
-            <a href="#inscripcion" className={styles.heroPrimaryCta}>
-              Inscribirse agora
-            </a>
+            {registrationsOpen ? (
+              <a href="#inscripcion" className={styles.heroPrimaryCta}>
+                Inscribirse agora
+              </a>
+            ) : (
+              <span className={styles.heroClosedPill}>Inscricións pechadas. Vémonos no Campamento!</span>
+            )}
             <span className={styles.heroPrice}>
               desde <strong>{priceMemberPerKidPerWeek}{currency}</strong> / semana
               (socias/os) · <strong>{pricePerKidPerWeek}{currency}</strong> / semana
@@ -84,7 +109,15 @@ const CampPage = () => {
             <div className={styles.deadlineInner}>
               <span className={styles.deadlineLabel}>Prazo</span>
               <span className={styles.deadlineText}>
-                Aberta ata o <strong>{registrationDeadline}</strong>.
+                {registrationsOpen ? (
+                  <>
+                    Aberta ata o <strong>{registrationDeadline}</strong>.
+                  </>
+                ) : (
+                  <>
+                    As inscricións están <strong>pechadas</strong> neste momento. Vémonos no Campamento!
+                  </>
+                )}
               </span>
               {minRegistrations && (
                 <span className={styles.deadlinePill}>
@@ -228,6 +261,16 @@ const CampPage = () => {
               kids={submission.kids}
               onReset={() => setSubmission(null)}
             />
+          ) : !registrationsOpen ? (
+            <Card hoverEffect={false} className={styles.closedCard}>
+              <h2>Inscricións pechadas</h2>
+              <p>
+                O formulario está desactivado neste momento por administración.
+              </p>
+              {registrationsMessage && (
+                <p className={styles.closedMessage}>{registrationsMessage}</p>
+              )}
+            </Card>
           ) : (
             <RegistrationForm onSuccess={setSubmission} />
           )}

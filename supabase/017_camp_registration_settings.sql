@@ -1,16 +1,52 @@
 -- =============================================================================
--- Club Treboada - create_camp_registration RPC
+-- Club Treboada - Camp registration open/closed setting
 -- =============================================================================
--- Run this in the Supabase SQL editor AFTER camp_registrations.sql AND
--- camp_weeks_migration.sql (and 013 if adding is_club_member to an old DB).
---
--- Inserts a parent registration row and all of its kids atomically and
--- returns both back to the caller. Runs as SECURITY DEFINER so the anon
--- visitor can both write and read the resulting rows without needing a
--- broad SELECT policy on the underlying tables.
---
--- total_amount is computed here (not trusted from the client). Weekly prices
--- must match src/data/campData.js: pricePerKidPerWeek / priceMemberPerKidPerWeek.
+-- Adds a tiny public config table so admins can open/close registrations
+-- without redeploying the site, and re-applies the RPC to enforce it.
+
+create table if not exists public.camp_settings (
+  id text primary key,
+  registrations_open boolean not null default true,
+  registrations_message text,
+  updated_at timestamptz not null default now()
+);
+
+insert into public.camp_settings (id, registrations_open, registrations_message)
+values ('main', true, null)
+on conflict (id) do nothing;
+
+create or replace function public.touch_camp_settings_updated_at()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at := now();
+  return new;
+end;
+$$;
+
+drop trigger if exists camp_settings_set_updated_at on public.camp_settings;
+create trigger camp_settings_set_updated_at
+  before update on public.camp_settings
+  for each row
+  execute function public.touch_camp_settings_updated_at();
+
+alter table public.camp_settings enable row level security;
+
+drop policy if exists "camp_settings_select_public" on public.camp_settings;
+create policy "camp_settings_select_public"
+  on public.camp_settings
+  for select
+  to anon, authenticated
+  using (true);
+
+drop policy if exists "camp_settings_update_admin" on public.camp_settings;
+create policy "camp_settings_update_admin"
+  on public.camp_settings
+  for update
+  to authenticated
+  using (public.user_role() = 'admin')
+  with check (public.user_role() = 'admin');
 
 create or replace function public.create_camp_registration(
   payload jsonb
@@ -28,7 +64,6 @@ declare
   v_weeks int;
   v_is_member boolean;
   v_registrations_open boolean;
-  -- Must match campData.js (general / member per week, EUR)
   v_price_general numeric(10,2) := 90;
   v_price_member numeric(10,2) := 60;
   v_unit numeric(10,2);
@@ -114,7 +149,5 @@ begin
 end;
 $$;
 
--- Anyone (anon + authenticated) can call this RPC. The function itself
--- enforces the business rules.
 grant execute on function public.create_camp_registration(jsonb)
   to anon, authenticated;

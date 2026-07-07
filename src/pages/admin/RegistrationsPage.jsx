@@ -2,6 +2,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import campData from '../../data/campData';
+import {
+  getCampRegistrationSettings,
+  setCampRegistrationOpenState,
+} from '../../lib/campRegistrationSettings';
 import { calculateAge } from '../../utils/calculateAge';
 import styles from './RegistrationsPage.module.css';
 
@@ -72,6 +76,10 @@ const RegistrationsPage = () => {
   const [fetchError, setFetchError] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
   const [actionError, setActionError] = useState(null);
+  const [viewerRole, setViewerRole] = useState(null);
+  const [settingsLoading, setSettingsLoading] = useState(true);
+  const [settingsSaving, setSettingsSaving] = useState(false);
+  const [registrationsOpen, setRegistrationsOpen] = useState(true);
 
   // Filters
   const [statusFilter, setStatusFilter] = useState('all');
@@ -100,6 +108,40 @@ const RegistrationsPage = () => {
   useEffect(() => {
     fetchRegistrations();
   }, [fetchRegistrations]);
+
+  const fetchSettings = useCallback(async () => {
+    setSettingsLoading(true);
+
+    const [{ data: settingsData, error: settingsError }, roleResult] =
+      await Promise.all([
+        getCampRegistrationSettings(),
+        supabase.auth.getUser(),
+      ]);
+
+    if (settingsError) {
+      setActionError(
+        settingsError.message || 'Non se puido cargar o estado das inscricións.'
+      );
+    } else if (settingsData) {
+      setRegistrationsOpen(settingsData.registrationsOpen);
+    }
+
+    const userId = roleResult.data.user?.id;
+    if (userId) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('user_id', userId)
+        .maybeSingle();
+      setViewerRole(profile?.role ?? null);
+    }
+
+    setSettingsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchSettings();
+  }, [fetchSettings]);
 
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -210,6 +252,29 @@ const RegistrationsPage = () => {
     setUpdatingId(null);
   };
 
+  const canManageRegistrationState = viewerRole === 'admin';
+
+  const handleRegistrationStateToggle = async () => {
+    if (!canManageRegistrationState) return;
+
+    const nextState = !registrationsOpen;
+    setSettingsSaving(true);
+    setActionError(null);
+
+    const { data, error } = await setCampRegistrationOpenState(nextState);
+
+    if (error) {
+      console.error('[admin] Failed to update camp registration state', error);
+      setActionError(
+        error.message || 'Non se puido cambiar o estado das inscricións.'
+      );
+    } else if (data) {
+      setRegistrationsOpen(data.registrationsOpen);
+    }
+
+    setSettingsSaving(false);
+  };
+
   return (
     <div className={styles.page}>
       <div className="container">
@@ -237,6 +302,42 @@ const RegistrationsPage = () => {
           <StatPill label="Recaudado" value={formatMoney(stats.collected)} />
           <StatPill label="Pendente cobro" value={formatMoney(stats.pending)} />
         </div>
+
+        <section className={styles.registrationStateCard}>
+          <div>
+            <h2 className={styles.registrationStateTitle}>
+              Estado das inscricións
+            </h2>
+            <p className={styles.registrationStateText}>
+              Agora mesmo están{' '}
+              <strong>{registrationsOpen ? 'abertas' : 'pechadas'}</strong> para
+              novas solicitudes.
+            </p>
+            {!canManageRegistrationState && !settingsLoading && (
+              <p className={styles.registrationStateHint}>
+                Só as persoas con rol de admin poden cambiar este estado.
+              </p>
+            )}
+          </div>
+          <button
+            type="button"
+            className={`${styles.stateButton} ${
+              registrationsOpen ? styles.stateButtonClose : styles.stateButtonOpen
+            }`}
+            onClick={handleRegistrationStateToggle}
+            disabled={
+              settingsLoading || settingsSaving || !canManageRegistrationState
+            }
+          >
+            {settingsLoading
+              ? 'Cargando…'
+              : settingsSaving
+                ? 'Gardando…'
+                : registrationsOpen
+                  ? 'Pechar inscricións'
+                  : 'Abrir inscricións'}
+          </button>
+        </section>
 
         <section className={styles.weekStats} aria-label="Inscricións por semana">
           <h2 className={styles.weekStatsTitle}>Por semana</h2>

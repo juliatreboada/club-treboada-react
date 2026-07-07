@@ -24,10 +24,20 @@ declare
   k jsonb;
   v_weeks int;
   v_is_member boolean;
+  v_registrations_open boolean;
   v_price_general numeric(10,2) := 90;
   v_price_member numeric(10,2) := 60;
   v_unit numeric(10,2);
 begin
+  select coalesce(cs.registrations_open, true)
+    into v_registrations_open
+  from public.camp_settings cs
+  where cs.id = 'main';
+
+  if coalesce(v_registrations_open, true) is not true then
+    raise exception 'Camp registrations are currently closed';
+  end if;
+
   if payload is null
      or payload->'kids' is null
      or jsonb_typeof(payload->'kids') <> 'array'

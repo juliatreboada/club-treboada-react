@@ -80,6 +80,66 @@
   color: #282828;
 }
 
+.registrationStateCard {
+  background: white;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.registrationStateTitle {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: #282828;
+}
+
+.registrationStateText {
+  margin: 0;
+  color: #555;
+}
+
+.registrationStateHint {
+  margin: 0.35rem 0 0;
+  color: #777;
+  font-size: 0.85rem;
+}
+
+.stateButton {
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  border: 1px solid transparent;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.stateButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.stateButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.stateButtonClose {
+  background: #fff4f3;
+  color: #b42318;
+  border-color: #f4c7c3;
+}
+
+.stateButtonOpen {
+  background: #f3faf5;
+  color: #2d6a3e;
+  border-color: #c8e6d0;
+}
+
 /* Week breakdown */
 .weekStats {
   background: white;
