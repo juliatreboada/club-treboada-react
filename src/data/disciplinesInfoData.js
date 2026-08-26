@@ -16,13 +16,14 @@ const disciplinesData = {
           // '/images/rit/rit-ini/Diapositiva4.jpg',
         ],
         details: [
-          { label: 'Edad', value: 'mínimo 4 anos' },
+          { label: 'Edad', value: 'mínimo 3 anos' },
           { label: 'Días', value: 'Martes e Xoves' },
-          { label: 'Horario', value: '17:00 - 19:00' },
+          { label: 'Horario', value: '17:30 - 18:30' },
+          { label: 'Pavillón', value: 'Príncipe Felipe' },
           { label: 'Precio Actividade', value: '42€/mes' },
           { label: 'Precio Licencia', value: '30€/ano' },
-          { label: 'Pavillón', value: 'Príncipe Felipe' },
-          { label: 'Contacto', value: 'Laura 613 99 07 13' }
+          { label: 'Contacto', value: 'Sara 634 04 98 80  -  Laura 613 99 07 13' }
+        
         ]
       },
       {
@@ -35,13 +36,12 @@ const disciplinesData = {
         ],
         details: [
           { label: 'Edad', value: 'mínimo 6 anos' },
-          { label: 'Días', value: 'Luns, Martes e Xoves' },
-          { label: 'Horario', value: '17:00 - 19:00' },
+          { label: 'Días', value: 'Luns, Mércores e Venres' },
+          { label: 'Horario', value: '18:00 - 20:00' },
+          { label: 'Pavillón', value: 'Cabanas - Salcedo' },
           { label: 'Precio Actividade', value: '48€/mes' },
           { label: 'Precio Licencia', value: '30€/ano' },
-          { label: 'Luns', value: 'Cabanas Salcedo' },
-          { label: 'Martes e Xoves', value: 'Príncipe Felipe' },
-          { label: 'Contacto', value: 'Laura 613 99 07 13' }
+          { label: 'Contacto', value: 'Sara 634 04 98 80  -  Laura 613 99 07 13' }
         ]
       },
       {
@@ -56,12 +56,12 @@ const disciplinesData = {
         ],
         details: [
           { label: 'Edad', value: 'mínimo 6 anos' },
+          { label: 'Días', value: 'Luns, Mércores e Venres' },
+          { label: 'Horario', value: '18:00 - 21:00' },
+          { label: 'Pavillón', value: 'Cabanas - Salcedo' },
           { label: 'Precio Actividade', value: '48€/mes' },
           { label: 'Precio Licencia', value: '30€/ano ou 60€/ano' },
-          { label: 'Contacto', value: 'Laura 613 99 07 13' },
-          { label: 'Luns e Venres', value: '18:00 - 21:00 (Cabanas Salcedo)' },
-          { label: 'Grupo B1', value: 'Martes 17:30 - 20:30 (Príncipe Felipe)' },
-          { label: 'Grupo B2', value: 'Xoves 17:30 - 20:30 (Príncipe Felipe)' }
+          { label: 'Contacto', value: 'Sara 634 04 98 80  -  Laura 613 99 07 13' }
         ]
       },
       {
@@ -76,12 +76,12 @@ const disciplinesData = {
         ],
         details: [
           { label: 'Edad', value: 'mínimo 7 anos' },
-          { label: 'Horario', value: 'Luns, Mércores e Venres 18:00 - 21:00' },
-          { label: 'Horario', value: 'Sábado 10:00 - 14:00' },
-          { label: 'Pavillón', value: 'Cabanas Salcedo' },
+          { label: 'Martes e Xoves', value: '17:30 - 21:00 - Pavillón Príncipe Felipe' },
+          { label: 'Venres', value: '16:00 - 19:00 - Pavillón de Cabanas - Salcedo' },
+          { label: 'Sábado', value: '10:00 - 14:00 - Pavillón de Cabanas - Salcedo' },
           { label: 'Precio Actividade', value: '54€/mes' },
           { label: 'Precio Licencia', value: '110€/ano' },
-          { label: 'Contacto', value: 'Laura 613 99 07 13' }
+          { label: 'Contacto', value: 'Sara 634 04 98 80  -  Laura 613 99 07 13' }
         ]
       }
     ],
@@ -185,8 +185,10 @@ const disciplinesData = {
           { label: 'Edad', value: 'mínimo 6 anos' },
           { label: 'Días', value: 'Martes, Xoves, Venres' },
           { label: 'Horario', value: '19:00 - 21:00' },
-          { label: 'Ubicación', value: 'Pavillón Municipal dos Deportes de Pontevedra' },
-          { label: 'Precio Actividade', value: '42€/mes (2 días) - 48€/mes (3 días)' },
+          { label: 'Días', value: 'Sábado' },
+          { label: 'Horario', value: '10:00 - 12:00' },
+          { label: 'Ubicación', value: 'Pavillón Cabanas - Salcedo' },
+          { label: 'Precio Actividade', value: '42€/mes (2 días) - 48€/mes (3 días) - 54€/mes (4 días)' },
           { label: 'Precio Licencia', value: '60€/ano' },
           { label: 'Contacto', value: 'Eva 627 42 90 24' }
         ]

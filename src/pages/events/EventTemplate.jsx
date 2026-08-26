@@ -52,7 +52,7 @@ const EventTemplate = ({
       </section>
 
       {/* Optional top-wide important notice banner */}
-      {importantNotice && (
+      {/* {importantNotice && (
         <section className={styles.importantBanner}>
           <div className="container">
             <div className={styles.importantBannerInner}>
@@ -63,7 +63,7 @@ const EventTemplate = ({
             </div>
           </div>
         </section>
-      )}
+      )} */}
 
       <main className={styles.main}>
         <div className="container">
