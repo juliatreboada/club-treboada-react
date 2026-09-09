@@ -15,6 +15,7 @@ import CampPage from './pages/camp/CampPage';
 import RegistrationsPage from './pages/admin/RegistrationsPage';
 import CalendarAdminPage from './pages/admin/CalendarAdminPage';
 import HeroSlidesAdminPage from './pages/admin/HeroSlidesAdminPage';
+import DisciplineGroupsAdminPage from './pages/admin/DisciplineGroupsAdminPage';
 import RequireAuth from './components/auth/RequireAuth';
 
 
@@ -60,6 +61,10 @@ function App() {
           <Route
             path="/admin/hero"
             element={<HeroSlidesAdminPage />}
+          />
+          <Route
+            path="/admin/grupos-disciplinas"
+            element={<DisciplineGroupsAdminPage />}
           />
         </Route>
       </Route>

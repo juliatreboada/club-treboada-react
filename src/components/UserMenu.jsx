@@ -122,6 +122,18 @@ const UserMenu = () => {
             </button>
           )}
 
+          {isStaff && (
+            <button
+              className={styles.menuItem}
+              onClick={() => {
+                setIsOpen(false);
+                navigate('/admin/grupos-disciplinas');
+              }}
+            >
+              <span>🤸</span> Grupos por disciplina
+            </button>
+          )}
+
           <div className={styles.divider} />
 
           <button

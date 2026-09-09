@@ -7,7 +7,7 @@ const escolasData = [
     alt: 'Concello de Pontevedra',
     disciplines: 'Rítmica, Acrobática ou Trampolín',
     days: 'Martes, Xoves e Venres',
-    time: '18:00 - 19:00',
+    time: '17:30 - 18:30',
     location: 'Pavillón Municipal dos Deportes',
     link: 'http://www.escolasdeportivastreboada.com/pontevedra',
     external: true

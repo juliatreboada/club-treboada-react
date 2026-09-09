@@ -117,155 +117,166 @@ const DashboardPage = () => {
         </div>
       </header>
 
-      <section className={styles.card}>
-        <form onSubmit={handleSave}>
-          <div className={styles.cardGrid}>
-            <div className={styles.cardLeft}>
-              <h2 className={styles.cardTitle}>O meu perfil</h2>
-              <p className={styles.cardHint}>
-                Personaliza o teu nome visible, elixe un avatar e a cor de
-                fondo.
-              </p>
+      <div className={styles.mainGrid}>
+        <section className={styles.card}>
+          <form onSubmit={handleSave}>
+            <div className={styles.cardGrid}>
+              <div className={styles.cardLeft}>
+                <h2 className={styles.cardTitle}>O meu perfil</h2>
+                <p className={styles.cardHint}>
+                  Personaliza o teu nome visible, elixe un avatar e a cor de
+                  fondo.
+                </p>
 
-              <label className={styles.field}>
-                <span className={styles.fieldLabel}>Nome visible</span>
-                <input
-                  type="text"
-                  className={styles.input}
-                  value={nameDraft}
-                  onChange={(e) => setNameDraft(e.target.value)}
-                  maxLength={60}
-                  placeholder="Ex.: Julia V."
-                />
-              </label>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Nome visible</span>
+                  <input
+                    type="text"
+                    className={styles.input}
+                    value={nameDraft}
+                    onChange={(e) => setNameDraft(e.target.value)}
+                    maxLength={60}
+                    placeholder="Ex.: Julia V."
+                  />
+                </label>
 
-              <fieldset className={styles.colorGroup}>
-                <legend className={styles.fieldLabel}>Cor de fondo</legend>
-                <div className={styles.colorRow}>
-                  {AVATAR_COLORS.map((option) => {
-                    const selected =
-                      colorDraft === option.id ||
-                      (!colorDraft && option.id === AVATAR_COLORS[0].id);
+                <fieldset className={styles.colorGroup}>
+                  <legend className={styles.fieldLabel}>Cor de fondo</legend>
+                  <div className={styles.colorRow}>
+                    {AVATAR_COLORS.map((option) => {
+                      const selected =
+                        colorDraft === option.id ||
+                        (!colorDraft && option.id === AVATAR_COLORS[0].id);
+                      return (
+                        <button
+                          key={option.id}
+                          type="button"
+                          className={`${styles.colorSwatch} ${
+                            selected ? styles.colorSwatchSelected : ''
+                          }`}
+                          style={{ background: option.value }}
+                          onClick={() => setColorDraft(option.id)}
+                          aria-label={option.label}
+                          aria-pressed={selected}
+                          title={option.label}
+                        />
+                      );
+                    })}
+                  </div>
+                </fieldset>
+              </div>
+
+              <fieldset className={styles.avatarGroup}>
+                <legend className={styles.fieldLabel}>Avatar</legend>
+                <div className={styles.avatarGrid}>
+                  {AVATAR_OPTIONS.map((option) => {
+                    const selected = avatarDraft === option.id;
                     return (
                       <button
                         key={option.id}
                         type="button"
-                        className={`${styles.colorSwatch} ${
-                          selected ? styles.colorSwatchSelected : ''
+                        className={`${styles.avatarOption} ${
+                          selected ? styles.avatarOptionSelected : ''
                         }`}
-                        style={{ background: option.value }}
-                        onClick={() => setColorDraft(option.id)}
+                        onClick={() => setAvatarDraft(option.id)}
                         aria-label={option.label}
                         aria-pressed={selected}
-                        title={option.label}
-                      />
+                      >
+                        <span className={styles.avatarEmoji}>{option.emoji}</span>
+                      </button>
                     );
                   })}
+                  <button
+                    type="button"
+                    className={`${styles.avatarOption} ${
+                      !avatarDraft ? styles.avatarOptionSelected : ''
+                    }`}
+                    onClick={() => setAvatarDraft('')}
+                    aria-label="Sen avatar"
+                    aria-pressed={!avatarDraft}
+                  >
+                    <span className={styles.avatarInitial}>{fallbackInitial}</span>
+                  </button>
                 </div>
               </fieldset>
             </div>
 
-            <fieldset className={styles.avatarGroup}>
-              <legend className={styles.fieldLabel}>Avatar</legend>
-              <div className={styles.avatarGrid}>
-                {AVATAR_OPTIONS.map((option) => {
-                  const selected = avatarDraft === option.id;
-                  return (
-                    <button
-                      key={option.id}
-                      type="button"
-                      className={`${styles.avatarOption} ${
-                        selected ? styles.avatarOptionSelected : ''
-                      }`}
-                      onClick={() => setAvatarDraft(option.id)}
-                      aria-label={option.label}
-                      aria-pressed={selected}
-                    >
-                      <span className={styles.avatarEmoji}>{option.emoji}</span>
-                    </button>
-                  );
-                })}
-                <button
-                  type="button"
-                  className={`${styles.avatarOption} ${
-                    !avatarDraft ? styles.avatarOptionSelected : ''
-                  }`}
-                  onClick={() => setAvatarDraft('')}
-                  aria-label="Sen avatar"
-                  aria-pressed={!avatarDraft}
-                >
-                  <span className={styles.avatarInitial}>{fallbackInitial}</span>
-                </button>
-              </div>
-            </fieldset>
-          </div>
+            {feedback && (
+              <p
+                className={
+                  feedback.kind === 'success'
+                    ? styles.feedbackSuccess
+                    : styles.feedbackError
+                }
+              >
+                {feedback.message}
+              </p>
+            )}
 
-          {feedback && (
-            <p
-              className={
-                feedback.kind === 'success'
-                  ? styles.feedbackSuccess
-                  : styles.feedbackError
-              }
-            >
-              {feedback.message}
-            </p>
-          )}
-
-          <div className={styles.formActions}>
-            <button
-              type="button"
-              className={styles.secondaryButton}
-              onClick={handleReset}
-              disabled={!isDirty || saving}
-            >
-              Desfacer
-            </button>
-            <button
-              type="submit"
-              className={styles.primaryButton}
-              disabled={!isDirty || saving}
-            >
-              {saving ? 'Gardando…' : 'Gardar cambios'}
-            </button>
-          </div>
-        </form>
-      </section>
-
-      {isStaff && (
-        <section className={styles.quickActions}>
-          <h2 className={styles.quickActionsTitle}>Accesos rápidos</h2>
-          <div className={styles.quickActionsGrid}>
-            <Link to="/admin/inscricions" className={styles.quickActionCard}>
-              <span className={styles.quickActionLabel}>Campamento</span>
-              <span className={styles.quickActionTitle}>
-                Inscricións campamento
-              </span>
-              <span className={styles.quickActionHint}>
-                Ver e xestionar as inscricións recibidas
-              </span>
-            </Link>
-            <Link to="/admin/calendario" className={styles.quickActionCard}>
-              <span className={styles.quickActionLabel}>Calendario</span>
-              <span className={styles.quickActionTitle}>
-                Xestionar calendario
-              </span>
-              <span className={styles.quickActionHint}>
-                Crear e editar eventos públicos do club
-              </span>
-            </Link>
-            <Link to="/admin/hero" className={styles.quickActionCard}>
-              <span className={styles.quickActionLabel}>Portada</span>
-              <span className={styles.quickActionTitle}>
-                Carrusel da portada
-              </span>
-              <span className={styles.quickActionHint}>
-                Engadir, editar ou reordenar os slides do inicio
-              </span>
-            </Link>
-          </div>
+            <div className={styles.formActions}>
+              <button
+                type="button"
+                className={styles.secondaryButton}
+                onClick={handleReset}
+                disabled={!isDirty || saving}
+              >
+                Desfacer
+              </button>
+              <button
+                type="submit"
+                className={styles.primaryButton}
+                disabled={!isDirty || saving}
+              >
+                {saving ? 'Gardando…' : 'Gardar cambios'}
+              </button>
+            </div>
+          </form>
         </section>
-      )}
+
+        {isStaff && (
+          <section className={styles.quickActions}>
+            <h2 className={styles.quickActionsTitle}>Accesos rápidos</h2>
+            <div className={styles.quickActionsGrid}>
+              <Link to="/admin/inscricions" className={styles.quickActionCard}>
+                <span className={styles.quickActionLabel}>Campamento</span>
+                <span className={styles.quickActionTitle}>
+                  Inscricións campamento
+                </span>
+                <span className={styles.quickActionHint}>
+                  Ver e xestionar as inscricións recibidas
+                </span>
+              </Link>
+              <Link to="/admin/calendario" className={styles.quickActionCard}>
+                <span className={styles.quickActionLabel}>Calendario</span>
+                <span className={styles.quickActionTitle}>
+                  Xestionar calendario
+                </span>
+                <span className={styles.quickActionHint}>
+                  Crear e editar eventos públicos do club
+                </span>
+              </Link>
+              <Link to="/admin/hero" className={styles.quickActionCard}>
+                <span className={styles.quickActionLabel}>Portada</span>
+                <span className={styles.quickActionTitle}>
+                  Carrusel da portada
+                </span>
+                <span className={styles.quickActionHint}>
+                  Engadir, editar ou reordenar os slides do inicio
+                </span>
+              </Link>
+              <Link to="/admin/grupos-disciplinas" className={styles.quickActionCard}>
+                <span className={styles.quickActionLabel}>Disciplinas</span>
+                <span className={styles.quickActionTitle}>
+                  Grupos por disciplina
+                </span>
+                <span className={styles.quickActionHint}>
+                  Editar fotos, horarios, prezos e contacto dos grupos
+                </span>
+              </Link>
+            </div>
+          </section>
+        )}
+      </div>
 
       <div className={styles.actions}>
         <button onClick={signOut}>Sign Out</button>

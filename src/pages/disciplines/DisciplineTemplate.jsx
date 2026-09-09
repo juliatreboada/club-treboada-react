@@ -1,28 +1,29 @@
 // src/pages/disciplines/DisciplineTemplate.jsx
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Section from '../../components/UI/Section';
 import Button from '../../components/UI/Button';
 import GroupCard from './components/GroupCard';
 import GroupNav from './components/GroupNav';
 import disciplinesData from '../../data/disciplinesInfoData';
+import { dbRowToGroup, listActiveDisciplineGroups } from '../../lib/disciplineGroupsRepository';
 import styles from './DisciplineTemplate.module.css';
 
 // Summary Component (se mantiene igual)
 const DisciplineSummary = ({ groups }) => {
   const totalGroups = groups.length;
-  
+
   const minAge = Math.min(...groups.map(g => {
-    const ageDetail = g.details.find(d => d.label === 'Edad');
-    if (ageDetail) {
-      const match = ageDetail.value.match(/\d+/);
+    const ageValue = g.age ?? g.details.find(d => d.label === 'Edad')?.value;
+    if (ageValue) {
+      const match = ageValue.match(/\d+/);
       return match ? parseInt(match[0]) : 99;
     }
     return 99;
   }));
 
   const contacts = [...new Set(groups.map(g => {
-    const contactDetail = g.details.find(d => d.label === 'Contacto');
-    return contactDetail ? contactDetail.value : null;
+    return g.contact ?? g.details.find(d => d.label === 'Contacto')?.value ?? null;
   }).filter(Boolean))];
 
   return (
@@ -45,6 +46,29 @@ const DisciplineSummary = ({ groups }) => {
 
 const DisciplineTemplate = ({ disciplineId }) => {
   const discipline = disciplinesData[disciplineId];
+  const [groups, setGroups] = useState(discipline?.groups ?? []);
+
+  useEffect(() => {
+    if (!discipline) return undefined;
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await listActiveDisciplineGroups(disciplineId);
+      if (cancelled) return;
+      if (error || !data || data.length === 0) {
+        if (error) {
+          console.warn('[discipline-groups] falling back to static data:', error.message);
+        }
+        // Fall back to the bundled static data so the page never breaks
+        // (network down, table not seeded yet, etc.).
+        setGroups(discipline.groups);
+      } else {
+        setGroups(data.map(dbRowToGroup).filter(Boolean));
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [disciplineId, discipline]);
 
   if (!discipline) {
     return <div>Disciplina non atopada</div>;
@@ -88,17 +112,17 @@ const DisciplineTemplate = ({ disciplineId }) => {
 
       {/* Summary Card */}
       <div className="container">
-        <DisciplineSummary groups={discipline.groups} />
+        <DisciplineSummary groups={groups} />
       </div>
 
       {/* Sticky Group Navigation */}
-      <GroupNav groups={discipline.groups} />
+      <GroupNav groups={groups} />
 
       {/* Groups Section */}
       <Section background="light" className={styles.groupsSection}>
         <div className="container">
           <div className={styles.groupsContainer}>
-            {discipline.groups.map((group) => (
+            {groups.map((group) => (
               <div key={group.id} id={`group-${group.id}`}>
                 <GroupCard group={group} />
               </div>
